@@ -1,0 +1,73 @@
+basePath: /api
+definitions:
+  accountcontroller.accountAuthenticateResponse:
+    properties:
+      pToken:
+        type: string
+      success:
+        type: boolean
+    type: object
+  accountcontroller.accountCreateRequest:
+    properties:
+      googleIdToken:
+        type: string
+    type: object
+host: localhost:5000
+info:
+  contact:
+    email: furkan139aydin@gmail.com
+    name: Furkan AYDIN
+  description: This is a sample server.
+  termsOfService: http://swagger.io/terms/
+  title: Space Swagger
+  version: "1.0"
+paths:
+  /account/authorize/{googleIdToken}:
+    get:
+      consumes:
+      - application/json
+      description: get string by ID
+      parameters:
+      - description: Google Id Token
+        in: path
+        name: googleIdToken
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/accountcontroller.accountAuthenticateResponse'
+      summary: Authenticate an account
+      tags:
+      - account
+  /account/create:
+    post:
+      consumes:
+      - application/json
+      description: create account
+      parameters:
+      - description: Google Id Token
+        in: body
+        name: googleIdToken
+        required: true
+        schema:
+          $ref: '#/definitions/accountcontroller.accountCreateRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/accountcontroller.accountAuthenticateResponse'
+      summary: Create an account
+      tags:
+      - account
+securityDefinitions:
+  PToken:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

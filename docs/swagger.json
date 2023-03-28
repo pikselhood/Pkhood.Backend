@@ -1,0 +1,111 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "This is a sample server.",
+        "title": "Space Swagger",
+        "termsOfService": "http://swagger.io/terms/",
+        "contact": {
+            "name": "Furkan AYDIN",
+            "email": "furkan139aydin@gmail.com"
+        },
+        "version": "1.0"
+    },
+    "host": "localhost:5000",
+    "basePath": "/api",
+    "paths": {
+        "/account/authorize/{googleIdToken}": {
+            "get": {
+                "description": "get string by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "account"
+                ],
+                "summary": "Authenticate an account",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Google Id Token",
+                        "name": "googleIdToken",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/accountcontroller.accountAuthenticateResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/account/create": {
+            "post": {
+                "description": "create account",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "account"
+                ],
+                "summary": "Create an account",
+                "parameters": [
+                    {
+                        "description": "Google Id Token",
+                        "name": "googleIdToken",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/accountcontroller.accountCreateRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/accountcontroller.accountAuthenticateResponse"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "accountcontroller.accountAuthenticateResponse": {
+            "type": "object",
+            "properties": {
+                "pToken": {
+                    "type": "string"
+                },
+                "success": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "accountcontroller.accountCreateRequest": {
+            "type": "object",
+            "properties": {
+                "googleIdToken": {
+                    "type": "string"
+                }
+            }
+        }
+    },
+    "securityDefinitions": {
+        "PToken": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
+        }
+    }
+}
